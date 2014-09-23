@@ -26,7 +26,9 @@ end
 
 package 'logentries'
 
-execute "le register --user-key #{node[:le][:userkey]}  --name='#{node[:le][:hostname]}'"
+node[:deploy].each do |app, deploy|
+  execute "le register --user-key #{node[:le][:userkey]}  --name='#{app}_#{node[:opsworks][:instance][:hostname]}'"
+end
 
 package 'logentries-daemon'
 
